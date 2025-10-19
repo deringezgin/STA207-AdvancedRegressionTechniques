@@ -1,0 +1,98 @@
+######################################################
+###Lecture-9 R code with exmaples and practice ###
+##Written by:P.Kohli
+##Date: 11/11/24
+######################################################
+#read autompg data
+autompg <- read.csv("data/autompg.csv")
+names(autompg)
+#####Model 1: mpg as a function of cyl and hp
+model1 <-  lm(mpg~cyl+hp,data=autompg)
+#####Model 2: mpg as a function of cyl and wt
+model2 <-  lm(mpg~cyl+wt,data=autompg)
+#####Model 3: mpg as a function of cyl, wt, and hp
+model3 <-  lm(mpg~cyl+hp+wt,data=autompg)
+#####Model 4: mpg as a function of cyl, wt, hp, and acc
+model4 <-  lm(mpg~cyl+hp+wt+acc,data=autompg)
+#################################################
+#Model comparison
+#################################################
+summary(model1)
+summary(model2)
+summary(model3)
+summary(model4)
+#R-squared adjusted
+summary(model1)$adj.r.squared
+summary(model2)$adj.r.squared
+summary(model3)$adj.r.squared
+summary(model4)$adj.r.squared
+#################################################
+#Practice: work on models 1-4 for autompg
+#see which predictors are statistically significant?
+#################################################
+
+
+
+
+
+#################################################
+###t CI to decide significance of the predictors
+#################################################
+confint(model1) #by default it is 95% as level=0.95
+confint(model1,level=0.90) #90%
+confint(model1,level=0.99) #99%
+
+confint(model3) #by default it is 95% as level=0.95
+######################################################
+###AIC, AICc, BIC for Galton data#######
+######################################################
+n <- nrow(autompg)
+aic1 <- AIC(model1)/n
+aic1
+r <- 3 #p+1
+sse <- sum(resid(model1)^2)
+aicc1 <- log(sse/n) + ((n+r)/(n-r-2))
+aicc1
+bic1 <- (AIC(model1,k=log(n)))/n
+bic1
+######################################################
+#Compare AIC, AICc and BIC for four models in autompg
+######################################################
+n <- nrow(autompg)
+aic1 <- AIC(model1)/n
+aic2 <- AIC(model2)/n
+aic3 <- AIC(model3)/n
+aic4 <- AIC(model4)/n
+aic1
+aic2
+aic3
+aic4
+
+r <- 3 #p+1
+sse <- sum(resid(model1)^2)
+aicc1 <- log(sse/n) + ((n+r)/(n-r-2))
+r <- 3 #p+1
+sse <- sum(resid(model2)^2)
+aicc2 <- log(sse/n) + ((n+r)/(n-r-2))
+aicc2
+r <- 4 #p+1
+sse <- sum(resid(model3)^2)
+aicc3 <- log(sse/n) + ((n+r)/(n-r-2))
+aicc3
+r <- 5 #p+1
+sse <- sum(resid(model4)^2)
+aicc4 <- log(sse/n) + ((n+r)/(n-r-2))
+
+aicc1
+aicc2
+aicc3
+aicc4
+bic1 <- (AIC(model1,k=log(n)))/n
+bic2 <- (AIC(model2,k=log(n)))/n
+bic3 <- (AIC(model3,k=log(n)))/n
+bic4 <- (AIC(model4,k=log(n)))/n
+bic1
+bic2
+bic3
+bic4
+

@@ -1,0 +1,10 @@
+newspaper_data = read.csv("../Newspaper.csv")
+summary(newspaper_data)
+hist(newspaper_data$Daily,
+     main="Histogram of Daily Circulations in Thousands",
+     xlab="Thousands")
+hist(newspaper_data$Sunday,
+     main="Histogram of Sunday Circulations in Thousands",
+     xlab="Thousands")
+
+
